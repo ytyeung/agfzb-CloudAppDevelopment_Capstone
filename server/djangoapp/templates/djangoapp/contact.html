@@ -3,7 +3,7 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <title>Dealership Review</title>
+    <title>Contact Us</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -11,10 +11,9 @@
     <link href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css" rel="stylesheet">
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
-
 </head>
 
-    <body>
+<body>
     <!--Add a nav bar here -->
     <nav class="navbar navbar-light bg-light">
         <div class="container-fluid">
@@ -25,21 +24,10 @@
             </div>
         </div>
     </nav>
-
-    <!--Add a dealer table here -->
-    {% if dealer_list %}
-    <ul>
-        {% for course in dealer_list %}
-        <div>
-            <img src="{{ MEDIA_URL }}/{{ course.image }}" width="360" height="360" >
-            <h1><b>{{ course.name }}</b></h1>
-        </div>
-        {% endfor %}
-    </ul>
-    {% else %}
-        <p>No dealers are available.</p>
-    {% endif %}
-
-    </body>
-
+        
+            <h1>Contact us at ... </h1>
+            <h1>Phone: ... </h1>
+            <h1>Email: ... </h1>
+        
+</body>
 </html>
