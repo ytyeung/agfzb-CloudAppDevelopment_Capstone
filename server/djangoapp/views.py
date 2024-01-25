@@ -77,9 +77,9 @@ def registration_request(request):
 
         user_exist = False
 
+        # Check if user already exists
         if User.objects.filter(username=username).exists():
-            # Check if user already exists
-            User.objects.get(username=username)
+            # User.objects.get(username=username)
             user_exist = True
         else:
             # If not, simply log this is a new user
