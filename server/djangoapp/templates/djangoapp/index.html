@@ -6,13 +6,32 @@
 {% block content %}
 <h1>Dealership Review</h1>
     {% if dealerships_list %}
-    <ul>
+    <table class="table table-striped mt-5">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Dealer Name</th>
+            <th scope="col">City</th>
+            <th scope="col">Address</th>
+            <th scope="col">Zip</th>
+            <th scope="col">State</th>
+          </tr>
+        </thead>
+        <tbody>
+
         {% for dealer in dealerships_list %}
-        <div>
-            <h1><b>{{ dealer.full_name }}</b></h1>
-        </div>
+        <tr>
+            <td>{{ dealer.id }}</td>
+            <td>{{ dealer.full_name }}</td>
+            <td>{{ dealer.city }}</td>
+            <td>{{ dealer.address }} hr</td>
+            <td>{{ dealer.zip }}</td>
+            <td>{{ dealer.st }}</td>
+        </tr>
         {% endfor %}
-    </ul>
+        </tbody>
+    </table>
+
     {% else %}
         <p>No dealers are available.</p>
     {% endif %}

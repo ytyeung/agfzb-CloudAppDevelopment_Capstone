@@ -24,7 +24,7 @@ let db;
 app.use(express.json());
 // Define a route to get all dealerships with optional state and ID filters
 app.get('/dealerships/get', (req, res) => {
-    const { state, id } = req.query;
+    const { state, id, st } = req.query;
     // Create a selector object based on query parameters
     const selector = {};
     if (state) {
