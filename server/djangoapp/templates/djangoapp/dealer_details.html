@@ -1,18 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dealership Review</title>
-    {% load static %}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
+{% extends "djangoapp/base.html" %}
 
-    <body>
+{% block title %} Reviews of {{ dealership.short_name }} {% endblock %}
 
-    <!--Add a nav bar here -->
 
-    <!-- Add reviews as cards -->
+{% block content %}
+<h1>Reviews of {{ dealership.short_name }}</h1>
+    {% if reviews_list %}
+    <table data-toggle="table" data-search="true" data-pagination="true" class="table table-hover table-bordered table-sm mt-5">
+        <thead>
+          <tr>
+            <th scope="col">Reviwer Name</th>
+            <th scope="col">Car Maker</th>
+            <th scope="col">Car Model</th>
+            <th scope="col">Year</th>
+            <th scope="col">Purchase</th>
+            <th scope="col">Purchase Date</th>
+            <th scope="col">Sentiment</th>
+            <th scope="col">Review</th>
+          </tr>
+        </thead>
+        <tbody>
 
-    </body>
+        {% for review in reviews_list %}
+        <tr>
+            <td>{{ review.name }}</td>
+            <td>{{ review.car_make }}</td>
+            <td>{{ review.car_model }}</td>
+            <td>{{ review.car_year }}</td>
+            <td>{{ review.purchase }}</td>
+            <td>{{ review.purchase_date }}</td>
+            <td>{{ review.sentiment }}</td>
+            <td>{{ review.review }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-</html>
+    {% else %}
+        <p>No reviews are available.</p>
+    {% endif %}
+
+{% endblock %}

@@ -3,7 +3,7 @@ import json
 # import related models here
 from requests.auth import HTTPBasicAuth
 
-from .models import CarDealer
+from .models import CarDealer, DealerReview
 
 
 # Create a `get_request` to make HTTP GET requests
@@ -54,11 +54,32 @@ def get_dealers_from_cf(url, **kwargs):
 def get_dealers_by_id(url, dealerId=None):
     return get_dealers_from_cf(url, id=dealerId)
 
+def get_dealers_by_state(url, state=None):
+    return get_dealers_from_cf(url, state=state)
+
 
 # Create a get_dealer_reviews_from_cf method to get reviews by dealer id from a cloud function
-# def get_dealer_by_id_from_cf(url, dealerId):
-# - Call get_request() with specified arguments
-# - Parse JSON results into a DealerView object list
+def get_dealer_reviews_from_cf(url, dealerId):
+    # - Call get_request() with specified arguments
+    # - Parse JSON results into a DealerView object list
+    results = []
+    json_result = get_request(url, dealerId = dealerId)
+    if json_result:
+        # Get the row list in JSON as dealers
+        reviews = json_result
+        # For each dealer object
+        for review in reviews:
+            # Get its content in `doc` object
+            review_doc = review
+            review_doc["sentiment"] = None
+            # Create a CarDealer object with values in `doc` object
+            review_obj = DealerReview(dealership=review_doc["dealership"], name=review_doc["name"], purchase=review_doc["purchase"],
+                                   review=review_doc["review"], purchase_date=review_doc["purchase_date"], car_make=review_doc["car_make"],
+                                   car_model=review_doc["car_model"],
+                                   car_year=review_doc["car_year"], sentiment=review_doc["sentiment"],
+                                   id=review_doc["id"])
+            results.append(review_obj)
+    return results
 
 
 # Create an `analyze_review_sentiments` method to call Watson NLU and analyze text

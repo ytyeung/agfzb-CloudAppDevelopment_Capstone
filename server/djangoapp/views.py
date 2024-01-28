@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 # from .models import related models
-from .restapis import get_dealers_from_cf, get_dealers_by_id
+from .restapis import get_dealers_from_cf, get_dealers_by_id, get_dealer_reviews_from_cf
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from datetime import datetime
@@ -110,8 +110,8 @@ def get_dealerships(request):
     if request.method == "GET":
         url = "https://sdyeung-3000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
         # Get dealers from the URL
-        #dealerships_list = get_dealers_from_cf(url)
-        dealerships_list = get_dealers_from_cf(url,state="Texas")
+        dealerships_list = get_dealers_from_cf(url)
+        
         #dealerships_list = get_dealers_by_id(url)
         # Concat all dealer's short name
         # Return a list of dealer short name
@@ -119,7 +119,13 @@ def get_dealerships(request):
 
 
 # Create a `get_dealer_details` view to render the reviews of a dealer
-#def get_dealer_details(request, dealer_id):
+def get_dealer_details(request, dealer_id):
+    if request.method == "GET":
+        url = 'https://sdyeung-5000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews'
+        reviews_list = get_dealer_reviews_from_cf(url,dealer_id)
+        dealer_url = "https://sdyeung-3000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        dealership = get_dealers_by_id(dealer_url,dealerId=dealer_id)
+        return render(request, 'djangoapp/dealer_details.html', {"reviews_list": reviews_list, "dealership": dealership[0]})
 
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
