@@ -5,12 +5,11 @@
 
 {% block content %}
 <h1>Dealership Review</h1>
-    {% if dealer_list %}
+    {% if dealerships_list %}
     <ul>
-        {% for course in dealer_list %}
+        {% for dealer in dealerships_list %}
         <div>
-            <img src="{{ MEDIA_URL }}/{{ course.image }}" width="360" height="360" >
-            <h1><b>{{ course.name }}</b></h1>
+            <h1><b>{{ dealer.full_name }}</b></h1>
         </div>
         {% endfor %}
     </ul>
