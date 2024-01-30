@@ -9,6 +9,7 @@ from django.contrib import messages
 from datetime import datetime
 import logging
 import json
+import uuid
 
 import requests as req
 
@@ -98,6 +99,8 @@ def registration_request(request):
         else:
             context["warning"] = "User exists. Please login."
             return render(request, 'djangoapp/registration.html', context)
+    else:
+        return HttpResponse("Wrong Method")
 
 # Update the `get_dealerships` view to render the index page with a list of dealerships
 #def get_dealerships(request):
@@ -125,29 +128,37 @@ def get_dealer_details(request, dealer_id):
         reviews_list = get_dealer_reviews_from_cf(url,dealer_id)
         dealer_url = "https://sdyeung-3000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
         dealership = get_dealers_by_id(dealer_url,dealerId=dealer_id)
-        return render(request, 'djangoapp/dealer_details.html', {"reviews_list": reviews_list, "dealership": dealership[0]})
+        return render(request, 'djangoapp/dealer_details.html', {"reviews_list": reviews_list, "dealer": dealership[0]})
 
 # Create a `add_review` view to submit a review
 def add_review(request, dealer_id):
-    review=dict()
-    review["time"] = datetime.utcnow().isoformat()
-    review["dealership"] = 11
-    review["review"] = "This is a great car dealer"
-    review["id"] = 100
-    review["name"] = "Peter Pan"
-    review["purchase"] = True
-    review["purchase_date"] = '22/11/2022'
-    review["car_make"] = "Audi"
-    review["car_model"] = "A6"
-    review["car_year"] = 2015
+    dealer_url = "https://sdyeung-3000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+    dealership = get_dealers_by_id(dealer_url,dealerId=dealer_id)
+    if request.method == 'GET':
+        return render(request, 'djangoapp/add_review.html', {"dealer": dealership[0]})
+    elif request.method == 'POST':
+        review=dict()
+        review["time"] = datetime.utcnow().isoformat()
+        review["dealership"] = dealer_id
+        review["review"] = request.POST['content']
+        review["id"] = str(uuid.uuid1())
+        review["name"] = f"{request.user.first_name} {request.user.last_name}"
+        review["purchase"] = True
+        review["purchase_date"] = request.POST['purchasedate']
+        review["car_make"] = "Audi"
+        review["car_model"] = "A6"
+        review["car_year"] = 2015
 
-    json_payload = review
+        json_payload = review
 
-    url = 'https://sdyeung-5000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/post_review'
+        url = 'https://sdyeung-5000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/post_review'
 
-    json_result = post_request(url, json_payload, dealerId=dealer_id)
+        json_result = post_request(url, json_payload, dealerId=dealer_id)
 
-    return HttpResponse(json_result)
+        return redirect("djangoapp:dealer_details", dealer_id=dealer_id)
+
+    else:
+        return HttpResponse("Wrong Method")
 
 
 

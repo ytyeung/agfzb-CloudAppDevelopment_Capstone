@@ -11,6 +11,7 @@
     <link href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css" rel="stylesheet">
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/filter-control/bootstrap-table-filter-control.min.js"></script>
+    {% block head %}{% endblock %}
 
 </head>
 
@@ -37,6 +38,7 @@
                 {% if user.is_authenticated %}
                 <li>
                     <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+                    {% block add_review %}{% endblock %}
                     <a class="btn btn-link text-decoration-none" href="{% url 'djangoapp:logout' %}">Logout</a>
                 </li>
                 {% else %}

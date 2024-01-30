@@ -1,43 +1,30 @@
 {% extends "djangoapp/base.html" %}
 
-{% block title %} Reviews of {{ dealership.short_name }} {% endblock %}
-
+{% block title %} Reviews of {{ dealer.full_name }} {% endblock %}
+{% block add_review %}
+<a class="btn btn-link text-decoration-none" href="{% url 'djangoapp:add_review' dealer.id %}">Add Review</a>
+{% endblock %}
 
 {% block content %}
-<h1>Reviews of {{ dealership.short_name }}</h1>
+<h1>Reviews of {{ dealer.full_name }}</h1>
     {% if reviews_list %}
-    <table data-toggle="table" data-search="true" data-pagination="true" class="table table-hover table-bordered table-sm mt-5">
-        <thead>
-          <tr>
-            <th scope="col">Reviwer Name</th>
-            <th scope="col">Car Maker</th>
-            <th scope="col">Car Model</th>
-            <th scope="col">Year</th>
-            <th scope="col">Purchase</th>
-            <th scope="col">Purchase Date</th>
-            <th scope="col">Sentiment</th>
-            <th scope="col">Review</th>
-          </tr>
-        </thead>
-        <tbody>
-
+    <div class="card-columns mt-5">
         {% for review in reviews_list %}
-        <tr>
-            <td>{{ review.name }}</td>
-            <td>{{ review.car_make }}</td>
-            <td>{{ review.car_model }}</td>
-            <td>{{ review.car_year }}</td>
-            <td>{{ review.purchase }}</td>
-            <td>{{ review.purchase_date }}</td>
-            <td>{{ review.sentiment }}</td>
-            <td>{{ review.review }}</td>
-        </tr>
+            <div class="card">
+            <img class="card-img-left mt-3 ml-3" src="{{MEDIA_URL}}/emoji/{{review.sentiment}}.png" style="width: 20%; height: 20%" />
+            <div class="card-body">
+                <h5 class="card-title">{{ review.car_make }}, {{ review.car_model }}</h5>
+                <h6 class="card-title">{{ review.car_year }}</h6>
+                <p class="card-text">{{ review.review }}</p>
+            </div>
+        </div>
         {% endfor %}
-        </tbody>
-    </table>
+
+    </div>
+    
 
     {% else %}
-        <p>No reviews are available.</p>
+        <p class="mt-5">No reviews are available.</p>
     {% endif %}
 
 {% endblock %}
