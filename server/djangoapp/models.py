@@ -14,7 +14,7 @@ class CarMake(models.Model):
     description = models.CharField(null=True, blank=True, max_length=255)
 
     def __str__(self):
-        return f"CarMake: {self.carmake_name}, description: {self.description}"
+        return f"{self.carmake_name}"
 
 
 # <HINT> Create a Car Model model `class CarModel(models.Model):`:
@@ -43,7 +43,7 @@ class CarModel(models.Model):
         return self.carmake.carmake_name
 
     def __str__(self):
-        return f"CarMake: {self.carmake_name}, CarModel: {self.carmodel_name}, CarType: {self.carmodel_type}, Year: {self.year}"
+        return f"{self.carmake_name} - {self.carmodel_name} - {self.year}"
 
 # <HINT> Create a plain Python class `CarDealer` to hold dealer data
 class CarDealer:

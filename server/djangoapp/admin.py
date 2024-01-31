@@ -21,14 +21,11 @@ class CarMakeResource(resources.ModelResource):
         model = CarMake
 
 # CarModelAdmin class
-class CarModelAdmin(admin.ModelAdmin):
-    list_display = ['get_carmake_name','dealerid','carmodel_name','carmodel_type','year']
-    list_filter = ['carmake__carmake_name','carmodel_name','carmodel_type','year']
-    search_fields = ['carmake__carmake_name','carmodel_name','carmodel_type','year']
-    #resource_classes = [CarModelResource]
-
-    def get_carmake_name(self, obj):
-        return obj.carmake.carmake_name
+class CarModelAdmin(ImportExportModelAdmin):
+    list_display = ['carmake','dealerid','carmodel_name','carmodel_type','year']
+    list_filter = ['carmake','carmodel_name','carmodel_type','year']
+    search_fields = ['carmake','carmodel_name','carmodel_type','year']
+    resource_classes = [CarModelResource]
 
 # CarMakeAdmin class with CarModelInline
 class CarMakeAdmin(ImportExportModelAdmin):
