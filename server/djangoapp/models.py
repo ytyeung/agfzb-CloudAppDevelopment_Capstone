@@ -36,7 +36,7 @@ class CarModel(models.Model):
         choices=[("SEDAN","Sedan"),("SUV","SUV"),("WAGON","WAGON")],
         default="SEDAN"
     )
-    year = models.IntegerField()
+    year = models.DateField()
 
     @property
     def carmake_name(self):

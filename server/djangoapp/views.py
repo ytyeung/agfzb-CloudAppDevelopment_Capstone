@@ -132,9 +132,10 @@ def get_dealer_details(request, dealer_id):
 
 # Create a `add_review` view to submit a review
 def add_review(request, dealer_id):
-    dealer_url = "https://sdyeung-3000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
-    dealership = get_dealers_by_id(dealer_url,dealerId=dealer_id)
     if request.method == 'GET':
+        dealer_url = "https://sdyeung-3000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        dealership = get_dealers_by_id(dealer_url,dealerId=dealer_id)
+        
         return render(request, 'djangoapp/add_review.html', {"dealer": dealership[0]})
     elif request.method == 'POST':
         review=dict()
