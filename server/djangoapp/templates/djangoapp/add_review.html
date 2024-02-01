@@ -18,14 +18,14 @@
             <label for="content" class="form-check-label w-100 mb-3">Has purchased the car from {{ dealer.full_name}}? 
             (Select purchased car information below if checked)</label>
             </div>
-            <label for="car" class="w-100 mb-3"><b>Select your car (model-make-year)</b></label>
+            <label for="car" class="w-100 mb-3"><b>Select your car (make-model-year)</b></label>
             <select name="car" id="car" class="form-select w-70 mb-3">
                 {% for car in cars %}
-                    <option selected value={{car.id}}>{{car.name}}-{{car.make.name}}-{{ car.year|date:"Y" }}</option>
+                    <option selected value="{{car.id}}-{{car.carmake_name}}-{{car.carmodel_name}}-{{ car.year }}">{{car.carmake_name}}-{{car.carmodel_name}}-{{ car.year }}</option>
                 {% endfor %}
            </select>
            <label for="purchasedate" class="w-100 mb-3"><b>Select your purchase date</b></label>
-           <input class="date-own form-control w-75 mb-3" type="text" name="purchasedate" id="purchasedate" />
+           <input class="form-control w-75 mb-3" type="date" name="purchasedate" id="purchasedate" />
 
             <div>
                 {% csrf_token %}
@@ -35,11 +35,11 @@
 
     </form>
 
-    <script type="text/javascript">
+    <!--<script type="text/javascript">
         $('.date-own').datepicker({
            format: 'mm/dd/yyyy'
          });
-   </script>
+   </script>-->
 
     {% else %}
         <p class="mt-5">Please login to review.</p>

@@ -43,7 +43,7 @@ class CarModel(models.Model):
         return self.carmake.carmake_name
 
     def __str__(self):
-        return f"{self.carmake_name} - {self.carmodel_name} - {self.year}"
+        return f"{self.carmake_name}-{self.carmodel_name}-{self.year}"
 
 # <HINT> Create a plain Python class `CarDealer` to hold dealer data
 class CarDealer:

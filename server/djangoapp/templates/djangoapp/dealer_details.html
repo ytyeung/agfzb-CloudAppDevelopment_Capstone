@@ -12,7 +12,7 @@
         {% for review in reviews_list %}
             <div class="card">
             <img class="card-img-left mt-3 ml-3" src="{{MEDIA_URL}}/emoji/{{review.sentiment}}.png" style="width: 20%; height: 20%" />
-            <div class="card-body">
+            <div class="card-body min-vh-25">
                 <h5 class="card-title">{{ review.car_make }}, {{ review.car_model }}</h5>
                 <h6 class="card-title">{{ review.car_year }}</h6>
                 <p class="card-text">{{ review.review }}</p>
