@@ -26,10 +26,9 @@ SECRET_KEY = 'ao5z(o(z@cvzodm99d32jkxa5e8a1!q_4sqss5-a%n6tg$#h$+'
 DEBUG = True
 
 APPEND_SLASH = True
+ALLOWED_HOSTS = ['localhost','https://sdyeung-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai']
 
-ALLOWED_HOSTS = ['localhost','<Your app URL>']
-
-CSRF_TRUSTED_ORIGINS = ['<Your app URL>']
+CSRF_TRUSTED_ORIGINS = ['https://sdyeung-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai']
 
 
 # Application definition
@@ -52,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = 'djangobackend.urls'
