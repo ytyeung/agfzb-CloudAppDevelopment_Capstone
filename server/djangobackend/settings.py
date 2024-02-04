@@ -26,9 +26,8 @@ SECRET_KEY = 'ao5z(o(z@cvzodm99d32jkxa5e8a1!q_4sqss5-a%n6tg$#h$+'
 DEBUG = True
 
 APPEND_SLASH = True
-ALLOWED_HOSTS = ['localhost','https://sdyeung-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai']
-
-CSRF_TRUSTED_ORIGINS = ['https://sdyeung-8000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', '*.cognitiveclass.ai','*.appdomain.cloud']
+CSRF_TRUSTED_ORIGINS = ['https://*.cognitiveclass.ai','https://*.appdomain.cloud']
 
 
 # Application definition
