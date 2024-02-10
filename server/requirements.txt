@@ -1,5 +1,6 @@
 requests
-Django==3.1.3
+#Django==3.1.3
+Django==4.2.10
 Pillow
 gunicorn==20.1.0
 ibm-cloud-sdk-core==3.10.0
