@@ -114,9 +114,9 @@ def get_dealer_reviews_from_cf(url, dealerId):
 
 # Create an `analyze_review_sentiments` method to call Watson NLU and analyze text
 
-def analyze_review_sentiments(text):
-    url = 'https://api.jp-tok.natural-language-understanding.watson.cloud.ibm.com/instances/cf6aea4b-3692-4aae-8761-5484e4af9f91'
-    api_key = '4qtnZV4hXaRA6RHmUoygA2CteftlSHoO3TLRZvAxFIBI'
+def analyze_review_sentiments_api(text):
+    url = ''
+    api_key = ''
     authenticator = IAMAuthenticator(api_key)
     natural_language_understanding = NaturalLanguageUnderstandingV1(version='2022-04-07',authenticator=authenticator)
     natural_language_understanding.set_service_url(url)
@@ -125,6 +125,30 @@ def analyze_review_sentiments(text):
 
     try:
         label = response['sentiment']['document']['label']
+    except:
+        label = "neural"
+
+    return(label)
+
+def analyze_review_sentiments(text):
+    url = ''
+    api_key = ''
+
+    json_payload=dict()
+    json_payload['text'] = text
+    json_payload['features'] = { "sentiment": { "targets": [text] } }
+    json_payload['language'] = "en"
+
+
+    try:
+        response = requests.post(f"{url}/v1/analyze?version=2022-04-07", auth=('apikey',api_key), json=json_payload)
+    except:
+        # If any error occurs
+        print("Network exception occurred")
+
+    try:
+        json_data = json.loads(response.text)
+        label = json_data['sentiment']['document']['label']
     except:
         label = "neural"
 

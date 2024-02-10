@@ -111,7 +111,7 @@ def registration_request(request):
 
 def get_dealerships(request):
     if request.method == "GET":
-        url = "https://sdyeung-3000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        url = "https://dealerships-list.1d8af0j7quu7.us-south.codeengine.appdomain.cloud/dealerships/get"
         # Get dealers from the URL
         dealerships_list = get_dealers_from_cf(url)
         
@@ -124,9 +124,9 @@ def get_dealerships(request):
 # Create a `get_dealer_details` view to render the reviews of a dealer
 def get_dealer_details(request, dealer_id):
     if request.method == "GET":
-        url = 'https://sdyeung-5000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/get_reviews'
+        url = 'https://review.1d8af0j7quu7.us-south.codeengine.appdomain.cloud/api/get_reviews'
         reviews_list = get_dealer_reviews_from_cf(url,dealer_id)
-        dealer_url = "https://sdyeung-3000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        dealer_url = "https://dealerships-list.1d8af0j7quu7.us-south.codeengine.appdomain.cloud/dealerships/get"
         dealership = get_dealers_by_id(dealer_url,dealerId=dealer_id)
         return render(request, 'djangoapp/dealer_details.html', {"reviews_list": reviews_list, "dealer": dealership[0]})
 
@@ -134,7 +134,7 @@ def get_dealer_details(request, dealer_id):
 def add_review(request, dealer_id):
     if request.method == 'GET':
         cars = CarModel.objects.filter(dealerid=dealer_id)
-        dealer_url = "https://sdyeung-3000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/dealerships/get"
+        dealer_url = "https://dealerships-list.1d8af0j7quu7.us-south.codeengine.appdomain.cloud/dealerships/get"
         dealership = get_dealers_by_id(dealer_url,dealerId=dealer_id)
         
         return render(request, 'djangoapp/add_review.html', {"dealer": dealership[0],"cars": cars})
@@ -155,7 +155,7 @@ def add_review(request, dealer_id):
 
         json_payload = review
 
-        url = 'https://sdyeung-5000.theiadockernext-0-labs-prod-theiak8s-4-tor01.proxy.cognitiveclass.ai/api/post_review'
+        url = 'https://review.1d8af0j7quu7.us-south.codeengine.appdomain.cloud/api/post_review'
 
         json_result = post_request(url, json_payload, dealerId=dealer_id)
 
